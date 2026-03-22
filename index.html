@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DINANGDANGAN | Purok 5 Dashboard</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(-45deg, #0f172a, #064e3b, #1e3a8a, #020617);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Glassmorphism Styles */
+        .glass {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 1.25rem;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Swiper Slider Overrides */
+        .swiper { width: 100%; height: 60vh; border-radius: 1.25rem; }
+        .swiper-slide img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.6); }
+        .slide-text { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .swiper-slide-active .slide-text { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
+
+        /* Leaflet Map */
+        .leaflet-container { border-radius: 1rem; z-index: 10; font-family: 'Poppins', sans-serif;}
+        .leaflet-top, .leaflet-bottom { z-index: 10 !important; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+        ::-webkit-scrollbar-thumb { background: rgba(16, 185, 129, 0.5); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(16, 185, 129, 0.8); }
+
+        /* Smooth Toggle Details */
+        .toggle-content {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.3s ease-out;
+        }
+        .toggle-content.open { grid-template-rows: 1fr; }
+        .toggle-inner { overflow: hidden; }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="glass-nav fixed w-full z-50 top-0 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20 flex-wrap">
+                <div class="flex flex-col justify-center py-2">
+                    <h1 class="text-2xl md:text-3xl font-bold tracking-wider text-white drop-shadow-lg">DINANGDANGAN</h1>
+                    <p class="text-xs md:text-sm text-emerald-300 font-light">
+                        <i class="fa-solid fa-location-dot mr-1 text-red-400"></i> Purok 5. Dinangdangan, Cabugo, Claver, Surigao Del Norte
+                    </p>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-2">
+                        <button onclick="switchTab('home')" class="hover:bg-emerald-500/30 px-3 py-2 rounded-md text-sm font-medium transition-all"><i class="fa-solid fa-house mr-1"></i> Dashboard</button>
+                        <button onclick="switchTab('gallery')" class="hover:bg-emerald-500/30 px-3 py-2 rounded-md text-sm font-medium transition-all"><i class="fa-solid fa-images mr-1"></i> Photos</button>
+                        <button onclick="switchTab('brgy-officials')" class="hover:bg-emerald-500/30 px-3 py-2 rounded-md text-sm font-medium transition-all"><i class="fa-solid fa-users-gear mr-1"></i> Brgy. Officials</button>
+                        <button onclick="switchTab('purok-officials')" class="hover:bg-emerald-500/30 px-3 py-2 rounded-md text-sm font-medium transition-all"><i class="fa-solid fa-users mr-1"></i> Purok 5</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20">
+        
+        <!-- DASHBOARD SECTION -->
+        <section id="home" class="content-section animate-[fadeIn_0.5s_ease-in-out]">
+            <!-- Hero Slider -->
+            <div class="glass p-2 mb-8 shadow-xl">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide relative">
+                            <img src="https://images.unsplash.com/photo-1542224566-6e85f2e6772f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Community">
+                            <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
+                                <div class="slide-text">
+                                    <h2 class="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">Welcome to <span class="text-emerald-400">Purok 5</span></h2>
+                                    <p class="text-lg md:text-2xl text-gray-200 drop-shadow-md">A vibrant, united community in Barangay Cabugo.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide relative">
+                            <img src="https://images.unsplash.com/photo-1621648083017-75903c73a903?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Nature">
+                            <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
+                                <div class="slide-text">
+                                    <h2 class="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">Nature's <span class="text-blue-400">Bounty</span></h2>
+                                    <p class="text-lg md:text-2xl text-gray-200 drop-shadow-md">Surigao Del Norte's lush landscapes and resources.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-next !text-white"></div>
+                    <div class="swiper-button-prev !text-white"></div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+                <!-- Bulletin Board (Toggle Accordion) -->
+                <div class="glass p-6 lg:col-span-2 shadow-xl">
+                    <h3 class="text-2xl font-bold mb-4 border-b border-white/20 pb-2"><i class="fa-solid fa-clipboard-list text-yellow-400 mr-2"></i> Bulletin Board</h3>
+                    <div class="space-y-3 max-h-[300px] overflow-y-auto pr-2">
+                        
+                        <!-- Item 1 -->
+                        <div class="glass-card border-l-4 border-l-emerald-400 cursor-pointer overflow-hidden transition-colors hover:bg-white/10" onclick="toggleBulletin('bulletin1', 'icon1')">
+                            <div class="p-4 flex justify-between items-center">
+                                <h4 class="font-bold text-lg">General Assembly Meeting</h4>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded">Upcoming</span>
+                                    <i id="icon1" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+                                </div>
+                            </div>
+                            <div id="bulletin1" class="toggle-content bg-black/20">
+                                <div class="toggle-inner p-4 pt-0 text-sm text-gray-300">
+                                    <hr class="border-white/10 mb-3">
+                                    <p><i class="fa-regular fa-clock text-emerald-400 mr-1"></i> Sunday, 3:00 PM</p>
+                                    <p><i class="fa-solid fa-location-dot text-red-400 mr-1"></i> Purok 5 Center</p>
+                                    <p class="mt-2">All residents of Purok 5 are strictly invited to attend the monthly assembly. We will be discussing upcoming community projects and security protocols.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div class="glass-card border-l-4 border-l-blue-400 cursor-pointer overflow-hidden transition-colors hover:bg-white/10" onclick="toggleBulletin('bulletin2', 'icon2')">
+                            <div class="p-4 flex justify-between items-center">
+                                <h4 class="font-bold text-lg">Coastal Clean-up Drive</h4>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-xs bg-blue-500/20 text-blue-300 px-2 py-1 rounded">Community</span>
+                                    <i id="icon2" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+                                </div>
+                            </div>
+                            <div id="bulletin2" class="toggle-content bg-black/20">
+                                <div class="toggle-inner p-4 pt-0 text-sm text-gray-300">
+                                    <hr class="border-white/10 mb-3">
+                                    <p>Please participate in the coastal and street clean-up scheduled for next Saturday morning. Bring your own brooms and sacks if possible. Snacks will be provided by the officials.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 3 -->
+                        <div class="glass-card border-l-4 border-l-red-400 cursor-pointer overflow-hidden transition-colors hover:bg-white/10" onclick="toggleBulletin('bulletin3', 'icon3')">
+                            <div class="p-4 flex justify-between items-center">
+                                <h4 class="font-bold text-lg">Typhoon Advisory</h4>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-xs bg-red-500/20 text-red-300 px-2 py-1 rounded">Alert</span>
+                                    <i id="icon3" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+                                </div>
+                            </div>
+                            <div id="bulletin3" class="toggle-content bg-black/20">
+                                <div class="toggle-inner p-4 pt-0 text-sm text-gray-300">
+                                    <hr class="border-white/10 mb-3">
+                                    <p>Attention: Please prepare your emergency go-bags. Monitor weather updates regarding the incoming low-pressure area. Coordinate with the Purok President if you need assistance fortifying your roofs.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Weather Forecast -->
+                <div class="glass p-6 flex flex-col shadow-xl">
+                    <h3 class="text-2xl font-bold mb-4 border-b border-white/20 pb-2"><i class="fa-solid fa-cloud-sun-rain text-blue-400 mr-2"></i> Weather</h3>
+                    <div class="flex-grow flex items-center justify-center">
+                        <div id="weather-widget" class="text-center w-full">
+                            <i class="fa-solid fa-spinner fa-spin text-4xl text-gray-400 mb-2"></i>
+                            <p class="text-sm text-gray-300">Fetching local weather...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map & Evacuation Location -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="glass p-6 lg:col-span-2 shadow-xl">
+                    <h3 class="text-2xl font-bold mb-4 border-b border-white/20 pb-2"><i class="fa-solid fa-map-location-dot text-emerald-400 mr-2"></i> Dinangdangan Map</h3>
+                    <div id="map" class="w-full h-80 rounded-xl shadow-inner border border-white/20"></div>
+                </div>
+                
+                <div class="glass p-6 shadow-xl">
+                    <h3 class="text-2xl font-bold mb-4 border-b border-white/20 pb-2"><i class="fa-solid fa-person-running text-red-400 mr-2"></i> Evacuation Info</h3>
+                    <div class="glass-card p-5 bg-red-500/10 border-red-500/30 text-center mb-4">
+                        <i class="fa-solid fa-house-medical-flag text-5xl text-red-400 mb-3 hover:scale-110 transition-transform cursor-pointer"></i>
+                        <h4 class="font-bold text-xl mb-1">Cabugo Brgy Gym</h4>
+                        <p class="text-sm text-gray-300">Primary Evacuation Center for Purok 5 Residents.</p>
+                    </div>
+                    <ul class="text-sm text-gray-200 space-y-3">
+                        <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Pack a Go-Bag (Food, Water, Meds).</li>
+                        <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Secure important documents.</li>
+                        <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Follow Purok Official instructions.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- GALLERY SECTION -->
+        <section id="gallery" class="content-section hidden">
+            <div class="glass p-8">
+                <div class="flex flex-col md:flex-row justify-between items-center mb-8 border-b border-white/20 pb-4">
+                    <h2 class="text-3xl font-bold"><i class="fa-solid fa-camera-retro mr-2"></i> Community Gallery</h2>
+                    <div class="mt-4 md:mt-0 relative group">
+                        <input type="file" id="photoUpload" accept="image/*" class="hidden">
+                        <label for="photoUpload" class="cursor-pointer bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2 px-6 rounded-full transition-all shadow-[0_0_15px_rgba(16,185,129,0.5)] flex items-center">
+                            <i class="fa-solid fa-cloud-arrow-up mr-2"></i> Upload Photo
+                        </label>
+                    </div>
+                </div>
+                <div id="galleryGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <div class="glass-card p-2 group relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1518557984649-7b161c230cfa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Nature" class="w-full h-48 object-cover rounded-lg transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute bottom-2 left-2 right-2 bg-black/60 backdrop-blur-sm p-2 rounded-md opacity-0 group-hover:opacity-100 transition-opacity">
+                            <p class="text-xs text-center text-white">Dinangdangan Scenery</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BARANGAY OFFICIALS SECTION -->
+        <section id="brgy-officials" class="content-section hidden">
+            <div class="glass p-8">
+                <h2 class="text-3xl font-bold mb-8 text-center border-b border-white/20 pb-4">
+                    <i class="fa-solid fa-landmark mr-2"></i> Barangay Cabugo Officials
+                </h2>
+                <div class="flex justify-center mb-8">
+                    <div class="glass-card p-6 w-full max-w-sm text-center bg-emerald-900/20 border-emerald-500/30">
+                        <div class="w-32 h-32 mx-auto bg-gray-800 rounded-full mb-4 border-4 border-emerald-400 overflow-hidden shadow-lg flex items-center justify-center">
+                            <i class="fa-solid fa-user-tie text-5xl text-gray-400"></i>
+                        </div>
+                        <h3 class="text-xl font-bold uppercase">Hon. Capitan Name</h3>
+                        <p class="text-emerald-400 font-medium">Punong Barangay</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <script>
+                        for(let i=1; i<=7; i++) {
+                            document.write(`
+                            <div class="glass-card p-6 text-center hover:bg-blue-900/20 border-blue-500/20">
+                                <div class="w-24 h-24 mx-auto bg-gray-800 rounded-full mb-4 border-2 border-blue-400 overflow-hidden flex items-center justify-center">
+                                    <i class="fa-regular fa-user text-3xl text-gray-400"></i>
+                                </div>
+                                <h3 class="text-lg font-bold">Hon. Kagawad ${i}</h3>
+                                <p class="text-blue-300 text-sm">Barangay Kagawad</p>
+                            </div>
+                            `);
+                        }
+                    </script>
+                </div>
+            </div>
+        </section>
+
+        <!-- PUROK 5 (OFFICIALS & RESIDENTS) SECTION -->
+        <section id="purok-officials" class="content-section hidden">
+            <!-- Officials Container -->
+            <div class="glass p-8 mb-8 shadow-xl">
+                <h2 class="text-3xl font-bold mb-8 text-center border-b border-white/20 pb-4">
+                    <i class="fa-solid fa-people-group mr-2"></i> Purok 5 Officials
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    <!-- President -->
+                    <div class="glass-card p-6 text-center bg-yellow-900/20 border-yellow-500/30">
+                        <div class="w-28 h-28 mx-auto bg-gray-800 rounded-full mb-4 border-4 border-yellow-400 overflow-hidden flex items-center justify-center">
+                            <i class="fa-solid fa-user-check text-4xl text-gray-400"></i>
+                        </div>
+                        <h3 class="text-xl font-bold uppercase text-yellow-300">Nitoy Nasayao</h3>
+                        <p class="text-white font-medium">Purok President</p>
+                    </div>
+                    <!-- Secretary -->
+                    <div class="glass-card p-6 text-center">
+                        <div class="w-24 h-24 mx-auto bg-gray-800 rounded-full mb-4 border-2 border-white/30 overflow-hidden flex items-center justify-center mt-2">
+                            <i class="fa-solid fa-pen-nib text-3xl text-gray-400"></i>
+                        </div>
+                        <h3 class="text-lg font-bold">Secretary Name</h3>
+                        <p class="text-gray-300 text-sm">Purok Secretary</p>
+                    </div>
+                    <!-- Treasurer -->
+                    <div class="glass-card p-6 text-center">
+                        <div class="w-24 h-24 mx-auto bg-gray-800 rounded-full mb-4 border-2 border-white/30 overflow-hidden flex items-center justify-center mt-2">
+                            <i class="fa-solid fa-coins text-3xl text-gray-400"></i>
+                        </div>
+                        <h3 class="text-lg font-bold">Treasurer Name</h3>
+                        <p class="text-gray-300 text-sm">Purok Treasurer</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Residents Directory Section -->
+            <div class="glass p-8 shadow-xl">
+                <div class="flex flex-col md:flex-row justify-between items-center border-b border-white/20 pb-4 mb-6">
+                    
+                    <!-- Title & Total Badge -->
+                    <div class="flex items-center mb-4 md:mb-0">
+                        <h3 class="text-2xl font-bold">
+                            <i class="fa-solid fa-address-book mr-2 text-blue-400"></i> Purok 5 Residents
+                        </h3>
+                        <span id="totalCountBadge" class="ml-4 bg-blue-500/20 border border-blue-400/30 text-blue-300 text-sm font-semibold px-4 py-1 rounded-full shadow-inner">
+                            Total: 0
+                        </span>
+                    </div>
+                    
+                    <!-- Search Bar for Residents -->
+                    <div class="relative w-full md:w-64">
+                        <input type="text" id="searchResident" onkeyup="filterResidents()" placeholder="Search resident..." class="w-full pl-10 pr-4 py-2 rounded-full bg-black/30 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 backdrop-blur-sm transition-colors">
+                        <i class="fa-solid fa-magnifying-glass absolute left-4 top-3 text-gray-400"></i>
+                    </div>
+                </div>
+
+                <!-- Scrollable Residents Grid -->
+                <div class="max-h-[400px] overflow-y-auto pr-2">
+                    <div id="residentsList" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        <!-- Residents will be injected here via JavaScript -->
+                    </div>
+                    <!-- No Results Message -->
+                    <p id="noResidentFound" class="hidden text-center text-gray-400 py-8 italic">No resident found with that name.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Mobile Bottom Navigation -->
+    <div class="md:hidden fixed bottom-0 w-full glass-nav z-50 p-2 flex justify-around pb-4">
+        <button onclick="switchTab('home')" class="text-white flex flex-col items-center p-2"><i class="fa-solid fa-house text-xl mb-1"></i><span class="text-[10px]">Home</span></button>
+        <button onclick="switchTab('gallery')" class="text-white flex flex-col items-center p-2"><i class="fa-solid fa-images text-xl mb-1"></i><span class="text-[10px]">Photos</span></button>
+        <button onclick="switchTab('brgy-officials')" class="text-white flex flex-col items-center p-2"><i class="fa-solid fa-users-gear text-xl mb-1"></i><span class="text-[10px]">Barangay</span></button>
+        <button onclick="switchTab('purok-officials')" class="text-white flex flex-col items-center p-2"><i class="fa-solid fa-users text-xl mb-1"></i><span class="text-[10px]">Purok</span></button>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        // 1. Tab Navigation
+        function switchTab(tabId) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.add('hidden');
+                section.classList.remove('animate-[fadeIn_0.5s_ease-in-out]');
+            });
+            const activeSection = document.getElementById(tabId);
+            activeSection.classList.remove('hidden');
+            activeSection.classList.add('animate-[fadeIn_0.5s_ease-in-out]');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (tabId === 'home' && map) { setTimeout(() => map.invalidateSize(), 100); }
+        }
+
+        // 2. Swiper Slider
+        var swiper = new Swiper(".mySwiper", {
+            spaceBetween: 30,
+            effect: "fade",
+            loop: true,
+            autoplay: { delay: 4000, disableOnInteraction: false },
+            pagination: { el: ".swiper-pagination", clickable: true },
+            navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+        });
+
+        // 3. Bulletin Board Accordion Toggle Logic
+        function toggleBulletin(contentId, iconId) {
+            const content = document.getElementById(contentId);
+            const icon = document.getElementById(iconId);
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                icon.classList.remove('rotate-180');
+            } else {
+                content.classList.add('open');
+                icon.classList.add('rotate-180');
+            }
+        }
+
+        // 4. Generate & Filter Residents
+        // Generating placeholder names: "Person Name 1" up to "Person Name 30"
+        const residentsData = Array.from({ length: 30 }, (_, i) => `Person Name ${i + 1}`);
+        const residentsList = document.getElementById('residentsList');
+        const totalCountBadge = document.getElementById('totalCountBadge');
+        
+        // Render Residents to the DOM
+        function renderResidents() {
+            residentsData.forEach(name => {
+                const div = document.createElement('div');
+                div.className = 'glass-card p-4 flex items-center space-x-3 resident-item hover:bg-emerald-900/30 transition-colors';
+                div.innerHTML = `
+                    <div class="bg-gray-700 h-10 w-10 rounded-full flex items-center justify-center text-emerald-400 font-bold border border-white/20">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-sm resident-name">${name}</h4>
+                        <p class="text-[10px] text-gray-400">Resident</p>
+                    </div>
+                `;
+                residentsList.appendChild(div);
+            });
+            // Set initial total count
+            totalCountBadge.innerText = `Total: ${residentsData.length}`;
+        }
+        renderResidents();
+
+        // Search Filter Logic
+        function filterResidents() {
+            const input = document.getElementById('searchResident').value.toLowerCase();
+            const items = document.querySelectorAll('.resident-item');
+            let visibleCount = 0;
+
+            items.forEach(item => {
+                const name = item.querySelector('.resident-name').innerText.toLowerCase();
+                if (name.includes(input)) {
+                    item.style.display = "flex";
+                    visibleCount++;
+                } else {
+                    item.style.display = "none";
+                }
+            });
+
+            // Update Dynamic Total Badge
+            totalCountBadge.innerText = `Total: ${visibleCount}`;
+            document.getElementById('noResidentFound').style.display = visibleCount === 0 ? "block" : "none";
+        }
+
+        // 5. Leaflet Map
+        var claverCoords =[9.5764, 125.7325]; 
+        var map = L.map('map').setView(claverCoords, 14);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; OpenStreetMap &copy; CARTO'
+        }).addTo(map);
+        L.marker(claverCoords).addTo(map).bindPopup('<b style="color:black;">Purok 5</b><br><span style="color:black;">Dinangdangan Center</span>').openPopup();
+        
+        var evacCoords =[9.5780, 125.7350];
+        var evacIcon = L.icon({
+            iconUrl: 'https://cdn-icons-png.flaticon.com/512/3063/3063189.png',
+            iconSize: [30, 30]
+        });
+        L.marker(evacCoords, {icon: evacIcon}).addTo(map).bindPopup('<b style="color:red;">Evacuation Center</b><br><span style="color:black;">Cabugo Brgy Gym</span>');
+
+        // 6. Weather API
+        const weatherWidget = document.getElementById('weather-widget');
+        fetch(`https://api.open-meteo.com/v1/forecast?latitude=9.5764&longitude=125.7325&current_weather=true`)
+            .then(res => res.json())
+            .then(data => {
+                const weather = data.current_weather;
+                let icon = "fa-cloud-sun";
+                let condition = "Clear/Cloudy";
+                if(weather.weathercode >= 61 && weather.weathercode <= 65) { icon = "fa-cloud-rain"; condition = "Raining"; }
+                else if(weather.weathercode >= 95) { icon = "fa-cloud-bolt"; condition = "Thunderstorm"; }
+                
+                weatherWidget.innerHTML = `
+                    <div class="glass-card p-4 inline-block w-full text-center border-blue-500/20 bg-blue-900/10">
+                        <i class="fa-solid ${icon} text-5xl text-blue-300 mb-3 drop-shadow-[0_0_10px_rgba(147,197,253,0.8)]"></i>
+                        <h4 class="text-4xl font-bold text-white mb-1">${weather.temperature}°C</h4>
+                        <p class="text-md text-emerald-400 font-semibold mb-2">${condition}</p>
+                        <div class="flex justify-center space-x-4 text-xs text-gray-300">
+                            <span><i class="fa-solid fa-wind text-gray-400"></i> ${weather.windspeed} km/h</span>
+                            <span><i class="fa-solid fa-compass text-gray-400"></i> Dir: ${weather.winddirection}°</span>
+                        </div>
+                        <p class="text-[10px] mt-3 text-gray-500">Live data for Claver, SD</p>
+                    </div>
+                `;
+            }).catch(err => {
+                weatherWidget.innerHTML = `<p class="text-red-400"><i class="fa-solid fa-triangle-exclamation"></i> Could not load weather data.</p>`;
+            });
+
+        // 7. Photo Upload Logic
+        const photoUpload = document.getElementById('photoUpload');
+        const galleryGrid = document.getElementById('galleryGrid');
+
+        photoUpload.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const newDiv = document.createElement('div');
+                    newDiv.className = 'glass-card p-2 group relative overflow-hidden animate-[fadeIn_0.5s_ease-in-out]';
+                    newDiv.innerHTML = `
+                        <img src="${e.target.result}" alt="Uploaded Photo" class="w-full h-48 object-cover rounded-lg transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute bottom-2 left-2 right-2 bg-black/60 backdrop-blur-sm p-2 rounded-md opacity-0 group-hover:opacity-100 transition-opacity">
+                            <p class="text-xs text-center text-emerald-300">New Community Upload</p>
+                        </div>
+                    `;
+                    galleryGrid.insertBefore(newDiv, galleryGrid.firstChild);
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>
