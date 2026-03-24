@@ -20,6 +20,8 @@
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
+    <!-- Supabase JS Library -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/umd/supabase.js"></script>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -94,6 +96,24 @@
         /* Modal Blur */
         .modal-backdrop { backdrop-filter: blur(8px); }
     </style>
+    <script>
+    const { createClient } = supabase;
+    const supabaseClient = createClient(
+        'YOUR_SUPABASE_URL',
+        'YOUR_SUPABASE_ANON_KEY'
+    );
+
+    // Load Bulletins from Supabase
+    async function loadBulletins() {
+        const { data, error } = await supabaseClient
+            .from('bulletins')
+            .select('*');
+        if (error) console.error('Error:', error);
+        else console.log('Bulletins:', data);
+    }
+
+    document.addEventListener('DOMContentLoaded', loadBulletins);
+    </script>
 </head>
 <body class="antialiased overflow-x-hidden">
 
