@@ -1,0 +1,51 @@
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 10px;
+    width: 100%;
+    max-width: 300px;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 600px) {
+    .dashboard {
+        flex-direction: column;
+    }
+    .card {
+        width: 90%;
+    }
+}
+
+.accessible {
+    font-size: 18px;
+    color: #333;
+}
+
+@media print {
+    .header, .card {
+        page-break-inside: avoid;
+    }
+    .dashboard {
+        padding: 0;
+    }
+}
