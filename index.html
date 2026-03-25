@@ -244,7 +244,7 @@
             <div class="glass p-6 shadow-xl border border-white/20 mb-8 w-full relative">
                 <div class="flex flex-col md:flex-row justify-between items-center mb-4 border-b border-white/20 pb-2">
                     <h3 class="text-2xl font-bold"><i class="fa-solid fa-map-location-dot text-emerald-400 mr-2"></i> P-5 Digital Spot Map</h3>
-                    <p class="text-xs text-gray-300 mt-2 md:mt-0 italic bg-black/30 px-3 py-1 rounded-full"><i class="fa-solid fa-lightbulb text-yellow-400 mr-1"></i> Tip: Go to "Manage" tab, then click on the map to auto-fill coordinates for a new resident!</p>
+                    <p class="text-xs text-gray-300 mt-2 md:mt-0 italic bg-black/30 px-3 py-1 rounded-full"><i class="fa-solid fa-lightbulb text-yellow-400 mr-1"></i> Tip: Go to "Manage" tab, then click on the map to auto-fill coordinates!</p>
                 </div>
                 <div id="map" class="w-full h-[500px] rounded-xl shadow-inner border border-white/20 relative z-10"></div>
             </div>
@@ -252,7 +252,7 @@
             <!-- BULLETIN & WEATHER SECTION -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
                 <!-- Bulletin Board -->
-                <div class="glass p-6 lg:col-span-2 shadow-xl border border-white/20">
+                <div class="glass p-6 lg:col-span-2 shadow-xl border border-white/20 flex flex-col">
                     <div class="flex flex-col md:flex-row justify-between items-center mb-4 border-b border-white/20 pb-2">
                         <h3 class="text-2xl font-bold mb-2 md:mb-0"><i class="fa-solid fa-clipboard-list text-yellow-400 mr-2"></i> Bulletin Board</h3>
                         <div class="relative w-full md:w-56">
@@ -263,93 +263,9 @@
                     
                     <p class="text-xs text-emerald-300 mb-3 italic"><i class="fa-solid fa-circle-info mr-1"></i> Showing top recent announcements.</p>
                     
-                    <div class="space-y-3 max-h-[500px] overflow-y-auto pr-2" id="bulletinList">
-                        <!-- Item 1 -->
-                        <div class="glass-card bulletin-item border-l-4 border-l-emerald-400 cursor-pointer overflow-hidden transition-colors hover:bg-white/10" onclick="toggleBulletin('bulletin1', 'icon1')">
-                            <div class="p-4 flex justify-between items-center">
-                                <h4 class="font-bold text-lg bulletin-title">General Assembly Meeting</h4>
-                                <div class="flex items-center space-x-3">
-                                    <span class="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded">Upcoming</span>
-                                    <i id="icon1" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
-                                </div>
-                            </div>
-                            <div id="bulletin1" class="toggle-content bg-black/20">
-                                <div class="toggle-inner p-4 pt-0 text-sm text-gray-300">
-                                    <hr class="border-white/10 mb-3 mt-1">
-                                    <div class="grid grid-cols-2 gap-2 mb-3 bg-black/30 p-3 rounded-lg border border-white/5">
-                                        <p><i class="fa-regular fa-calendar text-emerald-400 mr-2 w-4"></i> Oct 15, 2023</p>
-                                        <p><i class="fa-regular fa-clock text-emerald-400 mr-2 w-4"></i> 3:00 PM</p>
-                                        <p class="col-span-2"><i class="fa-solid fa-location-dot text-red-400 mr-2 w-4"></i> Purok 5 Center / Hall</p>
-                                        <p class="col-span-2"><i class="fa-solid fa-user-tie text-blue-400 mr-2 w-4"></i> Pres. Nitoy Nasayao</p>
-                                    </div>
-                                    <p class="mb-2"><strong class="text-white">Agenda:</strong> Discussion of the new street lighting project and financial transparency report.</p>
-                                    <p class="text-xs text-yellow-300"><i class="fa-solid fa-triangle-exclamation"></i> Attendance is highly encouraged for all household heads. Snacks will be provided.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Item 2 -->
-                        <div class="glass-card bulletin-item border-l-4 border-l-blue-400 cursor-pointer overflow-hidden transition-colors hover:bg-white/10" onclick="toggleBulletin('bulletin2', 'icon2')">
-                            <div class="p-4 flex justify-between items-center">
-                                <h4 class="font-bold text-lg bulletin-title">Coastal Clean-up Drive</h4>
-                                <div class="flex items-center space-x-3">
-                                    <span class="text-xs bg-blue-500/20 text-blue-300 px-2 py-1 rounded">Community</span>
-                                    <i id="icon2" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
-                                </div>
-                            </div>
-                            <div id="bulletin2" class="toggle-content bg-black/20">
-                                <div class="toggle-inner p-4 pt-0 text-sm text-gray-300">
-                                    <hr class="border-white/10 mb-3 mt-1">
-                                    <div class="grid grid-cols-2 gap-2 mb-3 bg-black/30 p-3 rounded-lg border border-white/5">
-                                        <p><i class="fa-regular fa-calendar text-blue-400 mr-2 w-4"></i> Oct 21, 2023</p>
-                                        <p><i class="fa-regular fa-clock text-blue-400 mr-2 w-4"></i> 6:00 AM</p>
-                                        <p class="col-span-2"><i class="fa-solid fa-location-dot text-red-400 mr-2 w-4"></i> Dinangdangan Coastline</p>
-                                    </div>
-                                    <p>Please participate in the coastal and street clean-up scheduled for next Saturday morning. Bring your own brooms and sacks if possible. Let us keep our marine environment clean!</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Item 3 -->
-                        <div class="glass-card bulletin-item border-l-4 border-l-red-500 cursor-pointer overflow-hidden transition-colors hover:bg-white/10" onclick="toggleBulletin('bulletin3', 'icon3')">
-                            <div class="p-4 flex justify-between items-center">
-                                <h4 class="font-bold text-lg bulletin-title">Relief Goods Distribution</h4>
-                                <div class="flex items-center space-x-3">
-                                    <span class="text-xs bg-red-500/20 text-red-300 px-2 py-1 rounded">Important</span>
-                                    <i id="icon3" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
-                                </div>
-                            </div>
-                            <div id="bulletin3" class="toggle-content bg-black/20">
-                                <div class="toggle-inner p-4 pt-0 text-sm text-gray-300">
-                                    <hr class="border-white/10 mb-3 mt-1">
-                                    <p class="mb-2">The LGU of Claver, in coordination with Brgy. Cabugo, will distribute food packs to all affected residents.</p>
-                                    <ul class="list-disc pl-5 space-y-1 text-xs mb-2">
-                                        <li>Bring valid ID or Barangay Clearance.</li>
-                                        <li>One representative per family only.</li>
-                                        <li>Wear face masks.</li>
-                                    </ul>
-                                    <p class="text-xs text-emerald-400"><i class="fa-solid fa-phone"></i> Contact Purok Secretary for claiming stubs.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Item 4 -->
-                        <div class="glass-card bulletin-item border-l-4 border-l-yellow-400 cursor-pointer overflow-hidden transition-colors hover:bg-white/10" onclick="toggleBulletin('bulletin4', 'icon4')">
-                            <div class="p-4 flex justify-between items-center">
-                                <h4 class="font-bold text-lg bulletin-title">Free Medical Mission</h4>
-                                <div class="flex items-center space-x-3"><span class="text-xs bg-yellow-500/20 text-yellow-300 px-2 py-1 rounded">Health</span><i id="icon4" class="fa-solid fa-chevron-down transition-transform duration-300"></i></div>
-                            </div>
-                            <div id="bulletin4" class="toggle-content bg-black/20"><div class="toggle-inner p-4 pt-0 text-sm text-gray-300"><hr class="border-white/10 mb-3 mt-1"><p>Free check-ups, vitamins distribution, and dental extractions.</p></div></div>
-                        </div>
-
-                        <!-- Item 5 -->
-                        <div class="glass-card bulletin-item border-l-4 border-l-purple-400 cursor-pointer overflow-hidden transition-colors hover:bg-white/10" onclick="toggleBulletin('bulletin5', 'icon5')">
-                            <div class="p-4 flex justify-between items-center">
-                                <h4 class="font-bold text-lg bulletin-title">Youth Sports Fest Registration</h4>
-                                <div class="flex items-center space-x-3"><span class="text-xs bg-purple-500/20 text-purple-300 px-2 py-1 rounded">Sports</span><i id="icon5" class="fa-solid fa-chevron-down transition-transform duration-300"></i></div>
-                            </div>
-                            <div id="bulletin5" class="toggle-content bg-black/20"><div class="toggle-inner p-4 pt-0 text-sm text-gray-300"><hr class="border-white/10 mb-3 mt-1"><p>Calling all youth. Accepting team registrations for Basketball.</p></div></div>
-                        </div>
+                    <!-- Dynamic Bulletin List -->
+                    <div class="space-y-3 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar" id="bulletinList">
+                        <!-- Populated by JS -->
                     </div>
                 </div>
 
@@ -403,7 +319,7 @@
                         <h3 class="text-2xl font-bold"><i class="fa-solid fa-house-crack text-orange-400 mr-2"></i> Recent Earthquakes</h3>
                         <p class="text-[10px] text-gray-400">Live USGS Data (PH)</p>
                     </div>
-                    <div id="earthquake-list" class="space-y-3 overflow-y-auto max-h-[200px] pr-2">
+                    <div id="earthquake-list" class="space-y-3 overflow-y-auto max-h-[200px] pr-2 custom-scrollbar">
                         <div class="text-center py-4"><i class="fa-solid fa-spinner fa-spin text-2xl text-gray-400"></i><p class="text-xs text-gray-400 mt-2">Loading Live Data...</p></div>
                     </div>
                 </div>
@@ -419,23 +335,24 @@
                     <iframe width="100%" height="100%" src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=mm&metricTemp=%C2%B0C&metricWind=km%2Fh&zoom=6&overlay=wind&product=ecmwf&level=surface&lat=9.5764&lon=125.7325" frameborder="0"></iframe>
                 </div>
             </div>
-
         </section>
 
         <!-- ADMIN / CRUD SECTION -->
         <section id="admin" class="content-section hidden">
             <div class="glass p-8 mb-8 shadow-xl border border-white/20">
-                <div class="flex flex-col md:flex-row justify-between items-center mb-8 border-b border-white/20 pb-4">
-                    <h2 class="text-3xl font-bold text-blue-400"><i class="fa-solid fa-database mr-2"></i> Manage Residents Data</h2>
+                
+                <!-- ================= RESIDENTS CRUD ================= -->
+                <div class="flex flex-col md:flex-row justify-between items-center mb-6 border-b border-white/20 pb-4">
+                    <h2 class="text-3xl font-bold text-blue-400"><i class="fa-solid fa-users mr-2"></i> Manage Residents</h2>
                     <p class="text-gray-300 text-sm mt-2 md:mt-0">Create, Update, or Delete community records.</p>
                 </div>
                 
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
                     <!-- Form Container -->
                     <div class="glass-card p-6 border border-white/10 h-fit bg-black/20 shadow-lg">
                         <h3 class="text-xl font-bold mb-4 border-b border-white/10 pb-2 text-white flex items-center justify-between">
-                            <span id="formTitle">Add New Resident</span>
-                            <button type="button" onclick="resetForm()" class="text-xs text-gray-400 hover:text-white"><i class="fa-solid fa-rotate-right mr-1"></i>Reset</button>
+                            <span id="resFormTitle">Add New Resident</span>
+                            <button type="button" onclick="resetResForm()" class="text-xs text-gray-400 hover:text-white"><i class="fa-solid fa-rotate-right mr-1"></i>Reset</button>
                         </h3>
                         <form id="residentForm" onsubmit="saveResident(event)">
                             <div class="mb-4">
@@ -468,7 +385,7 @@
                     </div>
 
                     <!-- Data Table -->
-                    <div class="lg:col-span-2 glass-card p-6 border border-white/10 bg-black/10 shadow-lg flex flex-col h-[500px]">
+                    <div class="lg:col-span-2 glass-card p-6 border border-white/10 bg-black/10 shadow-lg flex flex-col h-[450px]">
                         <div class="flex justify-between items-end border-b border-white/10 pb-3 mb-3">
                             <h3 class="text-xl font-bold text-white"><i class="fa-solid fa-list-ul mr-2 text-blue-400"></i> Records Directory</h3>
                             <span class="text-xs bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full border border-blue-500/30">Total: <span id="adminTotalCount">0</span></span>
@@ -491,6 +408,84 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- ================= BULLETIN CRUD ================= -->
+                <div class="flex flex-col md:flex-row justify-between items-center mb-6 border-b border-white/20 pb-4 mt-6">
+                    <h2 class="text-3xl font-bold text-yellow-400"><i class="fa-solid fa-clipboard-list mr-2"></i> Manage Bulletins</h2>
+                    <p class="text-gray-300 text-sm mt-2 md:mt-0">Post and update announcements instantly.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Form Container -->
+                    <div class="glass-card p-6 border border-white/10 h-fit bg-black/20 shadow-lg">
+                        <h3 class="text-xl font-bold mb-4 border-b border-white/10 pb-2 text-white flex items-center justify-between">
+                            <span id="bulFormTitle">Add Announcement</span>
+                            <button type="button" onclick="resetBulForm()" class="text-xs text-gray-400 hover:text-white"><i class="fa-solid fa-rotate-right mr-1"></i>Reset</button>
+                        </h3>
+                        <form id="bulletinForm" onsubmit="saveBulletin(event)">
+                            <div class="mb-4">
+                                <label class="block text-xs text-gray-400 mb-1 uppercase tracking-wider font-semibold">Title / Headline <span class="text-red-400">*</span></label>
+                                <input type="text" id="bulTitle" required placeholder="e.g. General Assembly" class="w-full px-3 py-2 rounded-lg bg-black/40 border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors">
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-xs text-gray-400 mb-1 uppercase tracking-wider font-semibold">Category Type <span class="text-red-400">*</span></label>
+                                <select id="bulType" class="w-full px-3 py-2 rounded-lg bg-black/40 border border-white/20 text-white focus:outline-none focus:border-yellow-400 transition-colors [&>option]:bg-gray-800">
+                                    <option value="Upcoming">Upcoming</option>
+                                    <option value="Important">Important</option>
+                                    <option value="Community">Community</option>
+                                    <option value="Health">Health</option>
+                                    <option value="Sports">Sports</option>
+                                </select>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3 mb-4">
+                                <div>
+                                    <label class="block text-[10px] text-gray-400 mb-1 uppercase tracking-wider font-semibold">Date</label>
+                                    <input type="text" id="bulDate" placeholder="e.g. Oct 15" required class="w-full px-3 py-2 rounded-lg bg-black/40 border border-white/20 text-white text-sm focus:outline-none focus:border-yellow-400 transition-colors">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] text-gray-400 mb-1 uppercase tracking-wider font-semibold">Time</label>
+                                    <input type="text" id="bulTime" placeholder="e.g. 3:00 PM" required class="w-full px-3 py-2 rounded-lg bg-black/40 border border-white/20 text-white text-sm focus:outline-none focus:border-yellow-400 transition-colors">
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-xs text-gray-400 mb-1 uppercase tracking-wider font-semibold">Location <span class="text-red-400">*</span></label>
+                                <input type="text" id="bulLocation" required placeholder="e.g. Purok Center" class="w-full px-3 py-2 rounded-lg bg-black/40 border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors">
+                            </div>
+                            <div class="mb-6">
+                                <label class="block text-xs text-gray-400 mb-1 uppercase tracking-wider font-semibold">Description / Agenda <span class="text-red-400">*</span></label>
+                                <textarea id="bulDesc" required rows="3" placeholder="Full details..." class="w-full px-3 py-2 rounded-lg bg-black/40 border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors custom-scrollbar"></textarea>
+                            </div>
+                            <button type="submit" id="saveBulBtn" class="w-full bg-yellow-600 hover:bg-yellow-500 text-white py-3 rounded-lg transition-all shadow-[0_0_15px_rgba(202,138,4,0.4)] font-bold text-sm flex justify-center items-center">
+                                <i class="fa-solid fa-bullhorn mr-2"></i> Post Bulletin
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Data Table -->
+                    <div class="lg:col-span-2 glass-card p-6 border border-white/10 bg-black/10 shadow-lg flex flex-col h-[550px]">
+                        <div class="flex justify-between items-end border-b border-white/10 pb-3 mb-3">
+                            <h3 class="text-xl font-bold text-white"><i class="fa-solid fa-list-ul mr-2 text-yellow-400"></i> Bulletin Records</h3>
+                            <span class="text-xs bg-yellow-500/20 text-yellow-300 px-3 py-1 rounded-full border border-yellow-500/30">Total: <span id="adminBulCount">0</span></span>
+                        </div>
+                        
+                        <div class="flex-grow overflow-x-auto overflow-y-auto pr-2 custom-scrollbar relative">
+                            <table class="w-full text-left text-sm text-gray-300 whitespace-nowrap">
+                                <thead class="text-xs text-gray-400 uppercase bg-black/50 sticky top-0 z-10">
+                                    <tr>
+                                        <th class="px-4 py-3 rounded-tl-lg font-semibold">Title</th>
+                                        <th class="px-4 py-3 font-semibold">Category</th>
+                                        <th class="px-4 py-3 font-semibold">Schedule</th>
+                                        <th class="px-4 py-3 text-right rounded-tr-lg font-semibold">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adminBulletinsList" class="divide-y divide-white/5">
+                                    <!-- Populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -705,6 +700,7 @@
     <!-- SUPABASE INTEGRATION -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+    <!-- MAIN SCRIPT BLOCK (Consolidated & Cleaned) -->
     <script>
         // --- 0. SUPABASE INITIALIZATION ---
         const { createClient } = supabase;
@@ -712,22 +708,22 @@
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdldGdramRoenFqcmJhbXlob3RtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyOTEyMjksImV4cCI6MjA4OTg2NzIyOX0.Gs-Om6xeNxCqAIZjMFPnAMtB2Y8Bcu4t5tLrncEhDDs';
         const supabaseClient = createClient(supabaseUrl, supabaseKey);
 
-        // --- 1. DATA SETUP (Static Fallback + Dynamic Mapping) ---
+        // --- 1. DATA SETUP (Static Fallbacks + Dynamic Arrays) ---
         const baseLat = 9.5764;
         const baseLng = 125.7325;
         let allMarkers = {};
         
-        // Static data acts as a seamless fallback
+        // Static Officials Data (1 Capitan + 7 Kagawads / 1 Chairman + 1 Sec + 1 Treas)
         let officialsData = {
             brgy:[
                 { id: 'b1', name: 'Hon. Barangay Capitan', position: 'Punong Barangay', phone: '0912-345-6789', committee: 'Executive / Peace & Order', icon: 'fa-user-tie', colors: { border: 'border-emerald-400', text: 'text-emerald-400', hoverBg: 'hover:bg-emerald-900/30', cardBorder: 'border-emerald-500/30' } },
-                { id: 'b2', name: 'Hon. Barangay Kagawad 1', position: 'Barangay Kagawad', phone: '0912-345-6780', committee: 'Committee on Health & Sanitation', icon: 'fa-user-nurse', colors: { border: 'border-blue-400', text: 'text-blue-400', hoverBg: 'hover:bg-blue-900/30', cardBorder: 'border-blue-500/30' } },
-                { id: 'b3', name: 'Hon. Barangay Kagawad 2', position: 'Barangay Kagawad', phone: '0912-345-6781', committee: 'Committee on Public Works / Infra', icon: 'fa-hard-hat', colors: { border: 'border-yellow-400', text: 'text-yellow-400', hoverBg: 'hover:bg-yellow-900/30', cardBorder: 'border-yellow-500/30' } },
-                { id: 'b4', name: 'Hon. Barangay Kagawad 3', position: 'Barangay Kagawad', phone: '0912-345-6782', committee: 'Committee on Education', icon: 'fa-book-open', colors: { border: 'border-purple-400', text: 'text-purple-400', hoverBg: 'hover:bg-purple-900/30', cardBorder: 'border-purple-500/30' } },
-                { id: 'b5', name: 'Hon. Barangay Kagawad 4', position: 'Barangay Kagawad', phone: '0912-345-6783', committee: 'Committee on Agriculture & Fishery', icon: 'fa-seedling', colors: { border: 'border-green-400', text: 'text-green-400', hoverBg: 'hover:bg-green-900/30', cardBorder: 'border-green-500/30' } },
-                { id: 'b6', name: 'Hon. Barangay Kagawad 5', position: 'Barangay Kagawad', phone: '0912-345-6784', committee: 'Committee on Rules & Laws', icon: 'fa-gavel', colors: { border: 'border-red-400', text: 'text-red-400', hoverBg: 'hover:bg-red-900/30', cardBorder: 'border-red-500/30' } },
-                { id: 'b7', name: 'Hon. Barangay Kagawad 6', position: 'Barangay Kagawad', phone: '0912-345-6785', committee: 'Committee on Women & Family', icon: 'fa-children', colors: { border: 'border-pink-400', text: 'text-pink-400', hoverBg: 'hover:bg-pink-900/30', cardBorder: 'border-pink-500/30' } },
-                { id: 'b8', name: 'Hon. Barangay Kagawad 7', position: 'Barangay Kagawad', phone: '0912-345-6786', committee: 'Committee on Youth & Sports', icon: 'fa-basketball', colors: { border: 'border-orange-400', text: 'text-orange-400', hoverBg: 'hover:bg-orange-900/30', cardBorder: 'border-orange-500/30' } }
+                { id: 'b2', name: 'Hon. Barangay Kagawad 1', position: 'Barangay Kagawad', phone: '0912-345-6780', committee: 'Health & Sanitation', icon: 'fa-user-nurse', colors: { border: 'border-blue-400', text: 'text-blue-400', hoverBg: 'hover:bg-blue-900/30', cardBorder: 'border-blue-500/30' } },
+                { id: 'b3', name: 'Hon. Barangay Kagawad 2', position: 'Barangay Kagawad', phone: '0912-345-6781', committee: 'Public Works / Infra', icon: 'fa-hard-hat', colors: { border: 'border-yellow-400', text: 'text-yellow-400', hoverBg: 'hover:bg-yellow-900/30', cardBorder: 'border-yellow-500/30' } },
+                { id: 'b4', name: 'Hon. Barangay Kagawad 3', position: 'Barangay Kagawad', phone: '0912-345-6782', committee: 'Education', icon: 'fa-book-open', colors: { border: 'border-purple-400', text: 'text-purple-400', hoverBg: 'hover:bg-purple-900/30', cardBorder: 'border-purple-500/30' } },
+                { id: 'b5', name: 'Hon. Barangay Kagawad 4', position: 'Barangay Kagawad', phone: '0912-345-6783', committee: 'Agriculture & Fishery', icon: 'fa-seedling', colors: { border: 'border-green-400', text: 'text-green-400', hoverBg: 'hover:bg-green-900/30', cardBorder: 'border-green-500/30' } },
+                { id: 'b6', name: 'Hon. Barangay Kagawad 5', position: 'Barangay Kagawad', phone: '0912-345-6784', committee: 'Rules & Laws', icon: 'fa-gavel', colors: { border: 'border-red-400', text: 'text-red-400', hoverBg: 'hover:bg-red-900/30', cardBorder: 'border-red-500/30' } },
+                { id: 'b7', name: 'Hon. Barangay Kagawad 6', position: 'Barangay Kagawad', phone: '0912-345-6785', committee: 'Women & Family', icon: 'fa-children', colors: { border: 'border-pink-400', text: 'text-pink-400', hoverBg: 'hover:bg-pink-900/30', cardBorder: 'border-pink-500/30' } },
+                { id: 'b8', name: 'Hon. Barangay Kagawad 7', position: 'Barangay Kagawad', phone: '0912-345-6786', committee: 'Youth & Sports', icon: 'fa-basketball', colors: { border: 'border-orange-400', text: 'text-orange-400', hoverBg: 'hover:bg-orange-900/30', cardBorder: 'border-orange-500/30' } }
             ],
             purok:[
                 { id: 'p1', name: 'Nitoy Nasayao', position: 'Purok Chairman', phone: '0919-876-5432', committee: 'Overall Coordinator', houseType: 'hall', coords:[baseLat + 0.0005, baseLng - 0.0002], icon: 'fa-user-check', colors: { border: 'border-yellow-400', text: 'text-yellow-400', hoverBg: 'hover:bg-yellow-900/30', cardBorder: 'border-yellow-500/30' } },
@@ -748,7 +744,16 @@
             }
         });
 
-        // Fetch dynamic data from Supabase
+        // Static Bulletin Data Fallback
+        let bulletinsData =[
+            { id: 'bul_1', title: 'General Assembly Meeting', type: 'Upcoming', date: 'Oct 15, 2026', time: '3:00 PM', location: 'Purok 5 Center', desc: 'Agenda: Discussion of the new street lighting project and financial transparency report. Attendance is highly encouraged for all household heads.' },
+            { id: 'bul_2', title: 'Coastal Clean-up Drive', type: 'Community', date: 'Oct 21, 2026', time: '6:00 AM', location: 'Dinangdangan Coastline', desc: 'Please participate in the coastal and street clean-up scheduled for next Saturday morning. Bring your own brooms and sacks.' },
+            { id: 'bul_3', title: 'Relief Goods Distribution', type: 'Important', date: 'TBA', time: 'TBA', location: 'Purok Hall', desc: 'The LGU of Claver will distribute food packs to all affected residents. Bring valid ID. One representative per family.' },
+            { id: 'bul_4', title: 'Free Medical Mission', type: 'Health', date: 'Nov 05, 2026', time: '8:00 AM', location: 'Health Center', desc: 'Free check-ups, vitamins distribution, and dental extractions for residents.' },
+            { id: 'bul_5', title: 'Youth Sports Fest', type: 'Sports', date: 'Nov 10, 2026', time: 'All Day', location: 'Barangay Gym', desc: 'Calling all youth. Accepting team registrations for Basketball and Volleyball.' }
+        ];
+
+        // --- Fetch Dynamic Data from Supabase ---
         async function fetchSupabaseData() {
             try {
                 // Fetch Officials 
@@ -769,6 +774,20 @@
                     }));
                 }
 
+                // Fetch Bulletins
+                const { data: bulletins, error: bulError } = await supabaseClient.from('bulletins').select('*').order('created_at', { ascending: false });
+                if (!bulError && bulletins && bulletins.length > 0) {
+                    bulletinsData = bulletins.map(b => ({
+                        id: b.id,
+                        title: b.title,
+                        type: b.type,
+                        date: b.date,
+                        time: b.time,
+                        location: b.location,
+                        desc: b.description
+                    }));
+                }
+
                 // Fetch Gallery
                 const { data: photos, error: photoError } = await supabaseClient.from('gallery').select('*').order('created_at', { ascending: false });
                 if (!photoError && photos && photos.length > 0) {
@@ -783,11 +802,20 @@
                 console.warn("Using fallback static data. Supabase fetch error:", err);
             }
 
-            // Render all UI elements with data
             renderAll();
         }
 
-        // --- 2. CRUD OPERATIONS FOR RESIDENTS ---
+        // --- Master Render Function ---
+        function renderAll() {
+            renderOfficials();
+            renderResidents();
+            renderAdminResidents(); 
+            renderBulletinsDashboard();
+            renderAdminBulletins();
+            plotMarkersOnMap();
+        }
+
+        // --- 2. RESIDENT CRUD OPERATIONS ---
         let editingResidentId = null;
 
         function renderAdminResidents() {
@@ -835,7 +863,7 @@
 
             try {
                 if (editingResidentId) {
-                    if(editingResidentId.startsWith('res_')) {
+                    if(editingResidentId.toString().startsWith('res_')) {
                         const idx = residentsData.findIndex(r => r.id === editingResidentId);
                         if(idx > -1) residentsData[idx] = { ...residentsData[idx], name, houseType, coords: [lat, lng] };
                     } else {
@@ -843,22 +871,21 @@
                         if (error) throw error;
                     }
                 } else {
-                    const { data, error } = await supabaseClient.from('residents').insert([{ name, house_type: houseType, lat, lng }]).select();
+                    const { error } = await supabaseClient.from('residents').insert([{ name, house_type: houseType, lat, lng }]);
                     if (error) throw error;
                 }
-                
                 await fetchSupabaseData(); 
-                resetForm();
+                resetResForm();
             } catch(err) {
-                console.warn("Supabase Action Failed (Likely permissions), applying to local state as fallback.", err);
+                console.warn("Supabase Action Failed (Likely permissions), applying to local state as fallback.");
                 if(!editingResidentId) {
                     residentsData.unshift({ id: 'res_' + Date.now(), name, houseType, coords: [lat, lng] });
                 } else {
                     const idx = residentsData.findIndex(r => r.id === editingResidentId);
-                    if(idx > -1) residentsData[idx] = { id: editingResidentId, name, houseType, coords: [lat, lng] };
+                    if(idx > -1) residentsData[idx] = { id: editingResidentId, name, houseType, coords:[lat, lng] };
                 }
                 renderAll(); 
-                resetForm();
+                resetResForm();
             }
 
             btn.innerHTML = '<i class="fa-solid fa-save mr-2"></i> Save Resident';
@@ -869,48 +896,197 @@
             const res = residentsData.find(r => r.id === id);
             if(!res) return;
             editingResidentId = id;
-            document.getElementById('formTitle').innerText = "Edit Resident";
+            document.getElementById('resFormTitle').innerText = "Edit Resident";
             document.getElementById('resName').value = res.name;
             document.getElementById('resType').value = res.houseType;
             document.getElementById('resLat').value = res.coords[0];
             document.getElementById('resLng').value = res.coords[1];
-            
             document.getElementById('residentForm').scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
         async function deleteResident(id) {
             if(!confirm('Are you sure you want to completely remove this resident from the records?')) return;
-            
             try {
-                if(!id.startsWith('res_')) {
+                if(!id.toString().startsWith('res_')) {
                     const { error } = await supabaseClient.from('residents').delete().eq('id', id);
                     if (error) throw error;
                 }
                 residentsData = residentsData.filter(r => r.id !== id);
                 renderAll();
             } catch(err) {
-                console.warn("Supabase Delete Failed, applying to local state as fallback.", err);
+                console.warn("Supabase Delete Failed, applying to local state as fallback.");
                 residentsData = residentsData.filter(r => r.id !== id);
                 renderAll();
             }
         }
 
-        function resetForm() {
+        function resetResForm() {
             editingResidentId = null;
-            document.getElementById('formTitle').innerText = "Add New Resident";
+            document.getElementById('resFormTitle').innerText = "Add New Resident";
             document.getElementById('residentForm').reset();
             document.getElementById('resLat').value = baseLat.toFixed(5);
             document.getElementById('resLng').value = baseLng.toFixed(5);
         }
 
-        function renderAll() {
-            renderOfficials();
-            renderResidents();
-            renderAdminResidents(); 
-            plotMarkersOnMap();
+        // --- 3. BULLETIN CRUD OPERATIONS ---
+        let editingBulletinId = null;
+
+        function getBulletinColors(type) {
+            let colors = { border: 'border-l-emerald-400', badgeBg: 'bg-emerald-500/20', badgeText: 'text-emerald-300', icon: 'text-emerald-400' };
+            if(type === 'Community') colors = { border: 'border-l-blue-400', badgeBg: 'bg-blue-500/20', badgeText: 'text-blue-300', icon: 'text-blue-400' };
+            if(type === 'Important') colors = { border: 'border-l-red-500', badgeBg: 'bg-red-500/20', badgeText: 'text-red-300', icon: 'text-red-400' };
+            if(type === 'Health') colors = { border: 'border-l-yellow-400', badgeBg: 'bg-yellow-500/20', badgeText: 'text-yellow-300', icon: 'text-yellow-400' };
+            if(type === 'Sports') colors = { border: 'border-l-purple-400', badgeBg: 'bg-purple-500/20', badgeText: 'text-purple-300', icon: 'text-purple-400' };
+            return colors;
         }
 
-        // --- UI Rendering Functions ---
+        function renderBulletinsDashboard() {
+            const list = document.getElementById('bulletinList');
+            list.innerHTML = '';
+            
+            if(bulletinsData.length === 0) {
+                list.innerHTML = '<p class="text-sm text-gray-400 italic text-center py-4">No current announcements.</p>';
+                return;
+            }
+
+            bulletinsData.forEach(bul => {
+                const colors = getBulletinColors(bul.type);
+                list.innerHTML += `
+                    <div class="glass-card bulletin-item border-l-4 ${colors.border} cursor-pointer overflow-hidden transition-colors hover:bg-white/10" onclick="toggleBulletin('content_${bul.id}', 'icon_${bul.id}')">
+                        <div class="p-4 flex justify-between items-center">
+                            <h4 class="font-bold text-lg bulletin-title">${bul.title}</h4>
+                            <div class="flex items-center space-x-3">
+                                <span class="text-xs ${colors.badgeBg} ${colors.badgeText} px-2 py-1 rounded">${bul.type}</span>
+                                <i id="icon_${bul.id}" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+                            </div>
+                        </div>
+                        <div id="content_${bul.id}" class="toggle-content bg-black/20">
+                            <div class="toggle-inner p-4 pt-0 text-sm text-gray-300">
+                                <hr class="border-white/10 mb-3 mt-1">
+                                <div class="grid grid-cols-2 gap-2 mb-3 bg-black/30 p-3 rounded-lg border border-white/5">
+                                    <p><i class="fa-regular fa-calendar ${colors.icon} mr-2 w-4"></i> ${bul.date}</p>
+                                    <p><i class="fa-regular fa-clock ${colors.icon} mr-2 w-4"></i> ${bul.time}</p>
+                                    <p class="col-span-2"><i class="fa-solid fa-location-dot text-red-400 mr-2 w-4"></i> ${bul.location}</p>
+                                </div>
+                                <p class="mb-2 text-white">${bul.desc}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function renderAdminBulletins() {
+            const tbody = document.getElementById('adminBulletinsList');
+            tbody.innerHTML = '';
+            
+            if (bulletinsData.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="px-4 py-8 text-center text-gray-400 italic">No records found.</td></tr>`;
+            }
+
+            bulletinsData.forEach(bul => {
+                const colors = getBulletinColors(bul.type);
+                tbody.innerHTML += `
+                    <tr class="hover:bg-white/5 transition-colors group">
+                        <td class="px-4 py-3 font-semibold text-white max-w-[200px] truncate" title="${bul.title}">${bul.title}</td>
+                        <td class="px-4 py-3">
+                            <span class="text-[10px] px-2 py-1 rounded-md border uppercase font-bold tracking-wider ${colors.badgeBg} ${colors.badgeText} border-white/10">${bul.type}</span>
+                        </td>
+                        <td class="px-4 py-3 text-xs text-gray-400">${bul.date}</td>
+                        <td class="px-4 py-3 text-right space-x-3">
+                            <button onclick="editBulletin('${bul.id}')" class="text-gray-400 hover:text-yellow-400 transition-colors" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button onclick="deleteBulletin('${bul.id}')" class="text-gray-400 hover:text-red-400 transition-colors" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `;
+            });
+            document.getElementById('adminBulCount').innerText = bulletinsData.length;
+        }
+
+        async function saveBulletin(e) {
+            e.preventDefault();
+            const title = document.getElementById('bulTitle').value;
+            const type = document.getElementById('bulType').value;
+            const date = document.getElementById('bulDate').value;
+            const time = document.getElementById('bulTime').value;
+            const location = document.getElementById('bulLocation').value;
+            const desc = document.getElementById('bulDesc').value;
+
+            const btn = document.getElementById('saveBulBtn');
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Processing...';
+            btn.disabled = true;
+
+            const payload = { title, type, date, time, location, description: desc };
+
+            try {
+                if (editingBulletinId) {
+                    if(editingBulletinId.toString().startsWith('bul_')) {
+                        const idx = bulletinsData.findIndex(b => b.id === editingBulletinId);
+                        if(idx > -1) bulletinsData[idx] = { id: editingBulletinId, title, type, date, time, location, desc };
+                    } else {
+                        const { error } = await supabaseClient.from('bulletins').update(payload).eq('id', editingBulletinId);
+                        if (error) throw error;
+                    }
+                } else {
+                    const { error } = await supabaseClient.from('bulletins').insert([payload]);
+                    if (error) throw error;
+                }
+                await fetchSupabaseData();
+                resetBulForm();
+            } catch(err) {
+                console.warn("Supabase Action Failed, applying to local state as fallback.", err);
+                if(!editingBulletinId) {
+                    bulletinsData.unshift({ id: 'bul_' + Date.now(), title, type, date, time, location, desc });
+                } else {
+                    const idx = bulletinsData.findIndex(b => b.id === editingBulletinId);
+                    if(idx > -1) bulletinsData[idx] = { id: editingBulletinId, title, type, date, time, location, desc };
+                }
+                renderAll();
+                resetBulForm();
+            }
+
+            btn.innerHTML = '<i class="fa-solid fa-bullhorn mr-2"></i> Post Bulletin';
+            btn.disabled = false;
+        }
+
+        function editBulletin(id) {
+            const bul = bulletinsData.find(b => b.id === id);
+            if(!bul) return;
+            editingBulletinId = id;
+            document.getElementById('bulFormTitle').innerText = "Edit Announcement";
+            document.getElementById('bulTitle').value = bul.title;
+            document.getElementById('bulType').value = bul.type;
+            document.getElementById('bulDate').value = bul.date;
+            document.getElementById('bulTime').value = bul.time;
+            document.getElementById('bulLocation').value = bul.location;
+            document.getElementById('bulDesc').value = bul.desc;
+            
+            document.getElementById('bulletinForm').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        async function deleteBulletin(id) {
+            if(!confirm('Delete this announcement?')) return;
+            try {
+                if(!id.toString().startsWith('bul_')) {
+                    const { error } = await supabaseClient.from('bulletins').delete().eq('id', id);
+                    if (error) throw error;
+                }
+                bulletinsData = bulletinsData.filter(b => b.id !== id);
+                renderAll();
+            } catch(err) {
+                console.warn("Supabase Delete Failed, applying to local fallback.");
+                bulletinsData = bulletinsData.filter(b => b.id !== id);
+                renderAll();
+            }
+        }
+
+        function resetBulForm() {
+            editingBulletinId = null;
+            document.getElementById('bulFormTitle').innerText = "Add Announcement";
+            document.getElementById('bulletinForm').reset();
+        }
+
+        // --- 4. GENERAL UI RENDERING (Officials, Lists) ---
         function renderOfficials() {
             const purokContainer = document.getElementById('purokOfficialsContainer');
             purokContainer.innerHTML = '';
@@ -975,7 +1151,7 @@
             document.getElementById('totalCountBadge').innerText = `Total: ${residentsData.length}`;
         }
 
-        // --- Core Tab Logistics ---
+        // --- 5. TABS & INTERACTIVITY LOGIC ---
         function switchTab(tabId) {
             document.querySelectorAll('.content-section').forEach(section => {
                 section.classList.add('hidden');
@@ -989,94 +1165,7 @@
             if (typeof map !== 'undefined') { setTimeout(() => map.invalidateSize(), 300); }
         }
 
-        // --- Map Initialization (SATELLITE VIEW) ---
-        var map = L.map('map', { zoomControl: false }).setView([baseLat, baseLng], 17);
-        L.control.zoom({ position: 'bottomright' }).addTo(map);
-
-        // ESRI Satellite World Imagery TileLayer
-        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-        }).addTo(map);
-
-        var legend = L.control({position: 'topright'});
-        legend.onAdd = function (map) {
-            var div = L.DomUtil.create('div', 'map-legend');
-            div.innerHTML += '<div style="margin-bottom:5px; font-weight:bold; font-size:12px; border-bottom:1px solid #fff; padding-bottom:3px;"><i class="fa-solid fa-signs-post" style="border:none;"></i> P-5 Legend</div>';
-            div.innerHTML += '<div><i style="background: #1e293b"></i> Concrete House</div>';
-            div.innerHTML += '<div><i style="background: #eab308"></i> Half-Concrete</div>';
-            div.innerHTML += '<div><i style="background: #f97316"></i> Medium House</div>';
-            div.innerHTML += '<div><i style="background: #ef4444"></i> Light Material</div>';
-            div.innerHTML += '<div><i style="background: #8b5cf6"></i> Purok Hall</div>';
-            return div;
-        };
-        legend.addTo(map);
-
-        // SMART MAP CLICK FEATURE FOR CRUD
-        map.on('click', function(e) {
-            const adminTab = document.getElementById('admin');
-            if(!adminTab.classList.contains('hidden')) {
-                document.getElementById('resLat').value = e.latlng.lat.toFixed(5);
-                document.getElementById('resLng').value = e.latlng.lng.toFixed(5);
-                
-                L.popup()
-                    .setLatLng(e.latlng)
-                    .setContent("<div style='text-align:center; font-family:Poppins;'><b style='color:#3b82f6;'>Location Picked!</b><br><span style='font-size:10px;'>Scroll down to the Manage form to save.</span></div>")
-                    .openOn(map);
-                
-                document.getElementById('residentForm').scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-        });
-
-        const getHouseIcon = (type) => {
-            let color = '#1e293b'; 
-            if (type === 'half-concrete') color = '#eab308'; 
-            else if (type === 'medium') color = '#f97316'; 
-            else if (type === 'light') color = '#ef4444'; 
-            else if (type === 'hall') color = '#8b5cf6'; 
-
-            return L.divIcon({
-                className: 'custom-div-icon',
-                html: `<div style="background-color: ${color}; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.8);"><i class="fa-solid fa-house text-white" style="font-size: 10px;"></i></div>`,
-                iconSize:[22, 22],
-                iconAnchor:[11, 11]
-            });
-        };
-
-        function plotPersonOnMap(person, titleColor) {
-            if(!person.coords) return;
-            const marker = L.marker(person.coords, { icon: getHouseIcon(person.houseType) }).addTo(map);
-            const popupContent = `
-                <div class="text-center font-sans">
-                    <b style="color:${titleColor}; font-size:14px;">${person.name}</b><br>
-                    <span style="font-size:10px; color:#cbd5e1;">${person.position || 'Resident'} | ${person.houseType.toUpperCase()}</span><br>
-                    <hr style="margin: 5px 0; border-color: rgba(255,255,255,0.2);">
-                    <span style="font-size:9px; color:#94a3b8; font-family: monospace;">
-                        <i class="fa-solid fa-location-crosshairs mr-1"></i>
-                        Lat: ${person.coords[0].toFixed(5)}, Lng: ${person.coords[1].toFixed(5)}
-                    </span>
-                </div>
-            `;
-            marker.bindPopup(popupContent);
-            allMarkers[person.id] = marker; 
-        }
-
-        function plotMarkersOnMap() {
-            for (let id in allMarkers) { map.removeLayer(allMarkers[id]); }
-            allMarkers = {};
-            officialsData.purok.forEach(off => plotPersonOnMap(off, '#fbbf24'));
-            residentsData.forEach(res => plotPersonOnMap(res, '#34d399'));
-        }
-
-        function locateOnMap(markerId) {
-            switchTab('home'); 
-            const marker = allMarkers[markerId];
-            if(marker) {
-                map.flyTo(marker.getLatLng(), 19, { animate: true, duration: 1.5 });
-                setTimeout(() => { marker.openPopup(); }, 1600);
-            }
-        }
-
-        // --- Other UI Logic ---
+        // Swiper
         var swiper = new Swiper(".mySwiper", {
             spaceBetween: 30,
             effect: "fade",
@@ -1086,6 +1175,7 @@
             navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
         });
 
+        // Search Filters
         function filterBulletins() {
             const input = document.getElementById('searchBulletin').value.toLowerCase();
             const items = document.querySelectorAll('.bulletin-item');
@@ -1114,6 +1204,7 @@
             document.getElementById('noResidentFound').style.display = visibleCount === 0 ? "block" : "none";
         }
 
+        // Modals
         function openOfficialModal(id, type) {
             const official = officialsData[type].find(o => o.id === id);
             if(!official) return;
@@ -1178,6 +1269,7 @@
             }
         }
 
+        // Widgets (Clock, Calendar, Weather, Earthquake, Pagasa)
         function updateClock() {
             const now = new Date();
             const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
@@ -1297,6 +1389,94 @@
                 weatherWidget.innerHTML = `<p class="text-red-400"><i class="fa-solid fa-triangle-exclamation"></i> Could not load weather data.</p>`;
             });
 
+        // --- 6. MAP INITIALIZATION (SATELLITE VIEW) ---
+        var map = L.map('map', { zoomControl: false }).setView([baseLat, baseLng], 17);
+        L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+        // ESRI Satellite World Imagery TileLayer
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri'
+        }).addTo(map);
+
+        var legend = L.control({position: 'topright'});
+        legend.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'map-legend');
+            div.innerHTML += '<div style="margin-bottom:5px; font-weight:bold; font-size:12px; border-bottom:1px solid #fff; padding-bottom:3px;"><i class="fa-solid fa-signs-post" style="border:none;"></i> P-5 Legend</div>';
+            div.innerHTML += '<div><i style="background: #1e293b"></i> Concrete House</div>';
+            div.innerHTML += '<div><i style="background: #eab308"></i> Half-Concrete</div>';
+            div.innerHTML += '<div><i style="background: #f97316"></i> Medium House</div>';
+            div.innerHTML += '<div><i style="background: #ef4444"></i> Light Material</div>';
+            div.innerHTML += '<div><i style="background: #8b5cf6"></i> Purok Hall</div>';
+            return div;
+        };
+        legend.addTo(map);
+
+        // Map Click to populate form
+        map.on('click', function(e) {
+            const adminTab = document.getElementById('admin');
+            if(!adminTab.classList.contains('hidden')) {
+                document.getElementById('resLat').value = e.latlng.lat.toFixed(5);
+                document.getElementById('resLng').value = e.latlng.lng.toFixed(5);
+                
+                L.popup()
+                    .setLatLng(e.latlng)
+                    .setContent("<div style='text-align:center; font-family:Poppins;'><b style='color:#3b82f6;'>Location Picked!</b><br><span style='font-size:10px;'>Scroll down to the Manage form to save.</span></div>")
+                    .openOn(map);
+                
+                document.getElementById('residentForm').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+
+        const getHouseIcon = (type) => {
+            let color = '#1e293b'; 
+            if (type === 'half-concrete') color = '#eab308'; 
+            else if (type === 'medium') color = '#f97316'; 
+            else if (type === 'light') color = '#ef4444'; 
+            else if (type === 'hall') color = '#8b5cf6'; 
+
+            return L.divIcon({
+                className: 'custom-div-icon',
+                html: `<div style="background-color: ${color}; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.8);"><i class="fa-solid fa-house text-white" style="font-size: 10px;"></i></div>`,
+                iconSize:[22, 22],
+                iconAnchor:[11, 11]
+            });
+        };
+
+        function plotPersonOnMap(person, titleColor) {
+            if(!person.coords) return;
+            const marker = L.marker(person.coords, { icon: getHouseIcon(person.houseType) }).addTo(map);
+            const popupContent = `
+                <div class="text-center font-sans">
+                    <b style="color:${titleColor}; font-size:14px;">${person.name}</b><br>
+                    <span style="font-size:10px; color:#cbd5e1;">${person.position || 'Resident'} | ${person.houseType.toUpperCase()}</span><br>
+                    <hr style="margin: 5px 0; border-color: rgba(255,255,255,0.2);">
+                    <span style="font-size:9px; color:#94a3b8; font-family: monospace;">
+                        <i class="fa-solid fa-location-crosshairs mr-1"></i>
+                        Lat: ${person.coords[0].toFixed(5)}, Lng: ${person.coords[1].toFixed(5)}
+                    </span>
+                </div>
+            `;
+            marker.bindPopup(popupContent);
+            allMarkers[person.id] = marker; 
+        }
+
+        function plotMarkersOnMap() {
+            for (let id in allMarkers) { map.removeLayer(allMarkers[id]); }
+            allMarkers = {};
+            officialsData.purok.forEach(off => plotPersonOnMap(off, '#fbbf24'));
+            residentsData.forEach(res => plotPersonOnMap(res, '#34d399'));
+        }
+
+        function locateOnMap(markerId) {
+            switchTab('home'); 
+            const marker = allMarkers[markerId];
+            if(marker) {
+                map.flyTo(marker.getLatLng(), 19, { animate: true, duration: 1.5 });
+                setTimeout(() => { marker.openPopup(); }, 1600);
+            }
+        }
+
+        // --- 7. FILE UPLOADS ---
         function appendImageToGallery(imgSrc, text="Community Upload") {
             const galleryGrid = document.getElementById('galleryGrid');
             const newDiv = document.createElement('div');
@@ -1328,7 +1508,7 @@
             }
         });
 
-        // Initialize App
+        // --- START APP ---
         fetchSupabaseData();
     </script>
 </body>
